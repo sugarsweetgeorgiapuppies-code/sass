@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sweet &amp; Sassy — This Week's Video Ideas</title>
+<style>
+  :root{
+    --pink:#E23D8F; --pinkdark:#c22d78; --ink:#2a2338; --muted:#7d7590; --line:#ede6f0;
+    --soft:#f7f2f8; --card:#fff; --ok:#25a06a; --shadow:0 3px 14px rgba(70,40,90,.08);
+    --p-party:#E23D8F; --p-salon:#7B4BC4; --p-spa:#159a94; --p-pierce:#EE6a2c;
+    --p-trust:#3B77D8; --p-camp:#D89A00; --p-bts:#9A7FB8; --p-local:#C64B8C;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);background:var(--soft);line-height:1.5;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:560px;margin:0 auto;padding:0 14px 90px;}
+
+  /* Sticky header */
+  .top{position:sticky;top:0;z-index:20;background:var(--soft);padding:16px 14px 8px;}
+  .top .inner{max-width:560px;margin:0 auto;}
+  .top h1{margin:0;font-size:20px;font-weight:800;letter-spacing:-.01em;}
+  .top .sub{color:var(--muted);font-size:13px;margin-top:1px;}
+  /* Progress */
+  .prog{display:flex;align-items:center;gap:10px;margin-top:12px;}
+  .bar{flex:1;height:9px;background:#eadff0;border-radius:99px;overflow:hidden;}
+  .bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,#E23D8F,#7B4BC4);
+    border-radius:99px;transition:width .35s ease;}
+  .prog .cnt{font-size:12.5px;font-weight:800;color:var(--pink);white-space:nowrap;}
+
+  /* Tabs */
+  .tabs{display:flex;gap:6px;margin-top:12px;background:#efe6f1;padding:4px;border-radius:12px;}
+  .tab{flex:1;text-align:center;padding:9px 6px;border-radius:9px;font-size:13.5px;font-weight:700;
+    color:var(--muted);cursor:pointer;border:none;background:none;}
+  .tab.active{background:#fff;color:var(--ink);box-shadow:var(--shadow);}
+
+  /* Intro line */
+  .hint{background:#fff;border:1px dashed #e6d3e6;border-radius:12px;padding:11px 14px;margin:14px 0 4px;
+    font-size:13px;color:var(--muted);}
+  .hint b{color:var(--ink);}
+
+  /* Idea card */
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-top:12px;
+    box-shadow:var(--shadow);overflow:hidden;transition:.2s;}
+  .card.done{opacity:.62;}
+  .card .head{display:flex;gap:12px;padding:15px 15px 13px;align-items:flex-start;}
+  .daychip{flex:0 0 auto;text-align:center;background:var(--soft);border-radius:11px;padding:7px 9px;min-width:52px;}
+  .daychip .d{font-size:10.5px;font-weight:800;letter-spacing:.05em;color:var(--muted);text-transform:uppercase;}
+  .daychip .n{font-size:20px;font-weight:800;line-height:1;}
+  .headmain{flex:1;min-width:0;}
+  .ptag{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:800;text-transform:uppercase;
+    letter-spacing:.04em;margin-bottom:5px;}
+  .ptag .dot{width:8px;height:8px;border-radius:50%;}
+  .idea{font-size:18px;font-weight:800;line-height:1.25;letter-spacing:-.01em;}
+  .card.done .idea{text-decoration:line-through;text-decoration-color:#c9bcd4;}
+  .why{color:var(--muted);font-size:13.5px;margin-top:4px;}
+
+  /* Actions row */
+  .actions{display:flex;gap:8px;padding:0 15px 15px;}
+  .mark{flex:1;border:1.5px solid var(--pink);background:#fff;color:var(--pink);border-radius:11px;
+    padding:11px;font-size:14px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;}
+  .mark:hover{background:#fdf0f7;}
+  .card.done .mark{background:var(--ok);border-color:var(--ok);color:#fff;}
+  .more{flex:0 0 auto;border:1.5px solid var(--line);background:#fff;color:var(--ink);border-radius:11px;
+    padding:11px 15px;font-size:14px;font-weight:700;cursor:pointer;}
+  .more:hover{border-color:var(--pink);color:var(--pink);}
+
+  /* Details */
+  .details{display:none;border-top:1px solid var(--line);padding:6px 16px 8px;background:#fdfbfe;}
+  .card.open .details{display:block;}
+  .card.open .more{border-color:var(--pink);color:var(--pink);}
+  .block{padding:12px 0;border-bottom:1px solid var(--line);}
+  .block:last-child{border-bottom:none;}
+  .block .lab{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--pink);
+    margin-bottom:5px;display:flex;align-items:center;gap:6px;}
+  .block .txt{font-size:14px;}
+  .block ul{margin:4px 0 0;padding-left:18px;} .block ul li{margin:4px 0;font-size:13.5px;}
+  .flex-note{font-size:12px;color:var(--muted);font-style:italic;margin-top:3px;}
+  .copyrow{display:flex;gap:8px;align-items:flex-start;}
+  .copyrow .txt{flex:1;}
+  .copybtn{flex:0 0 auto;border:none;background:var(--soft);color:var(--pink);font-weight:800;font-size:12px;
+    border-radius:8px;padding:7px 11px;cursor:pointer;}
+  .copybtn:hover{background:#f0e3f0;}
+  .tags{color:var(--pink);font-weight:600;font-size:13px;}
+  .fname{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;background:var(--soft);
+    padding:3px 8px;border-radius:6px;}
+
+  /* Idea bank grid */
+  .bank .card .head{padding-bottom:13px;}
+  /* How it works */
+  .steps{background:#fff;border:1px solid var(--line);border-radius:16px;padding:6px 18px;margin-top:14px;box-shadow:var(--shadow);}
+  .step{display:flex;gap:13px;padding:15px 0;border-bottom:1px solid var(--line);}
+  .step:last-child{border-bottom:none;}
+  .step .ic{flex:0 0 auto;width:38px;height:38px;border-radius:11px;background:var(--soft);display:flex;
+    align-items:center;justify-content:center;font-size:19px;}
+  .step .st b{display:block;font-size:15px;margin-bottom:2px;}
+  .step .st p{margin:0;color:var(--muted);font-size:13.5px;}
+
+  .resetline{text-align:center;margin-top:20px;}
+  .reset{background:none;border:none;color:var(--muted);font-size:12.5px;text-decoration:underline;cursor:pointer;}
+
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:26px;line-height:1.8;}
+  footer a{color:var(--pink);text-decoration:none;}
+
+  .trendbar{font-size:12px;color:var(--muted);margin-top:12px;background:#fff;border:1px solid var(--line);
+    border-radius:12px;padding:10px 13px;box-shadow:var(--shadow);}
+  .trendbar b{color:var(--ink);}
+  .trendbar .th{font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--pink);font-weight:800;margin-bottom:5px;}
+
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);opacity:0;
+    background:var(--ink);color:#fff;padding:10px 18px;border-radius:99px;font-size:13px;font-weight:600;
+    pointer-events:none;transition:.25s;z-index:40;}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="inner">
+    <h1>This Week's Video Ideas 🎬</h1>
+    <div class="sub" id="weekSub">August 17–23, 2026</div>
+    <div class="prog">
+      <div class="bar"><span id="barFill"></span></div>
+      <div class="cnt" id="progCnt">0 of 7 filmed</div>
+    </div>
+    <div class="tabs">
+      <button class="tab active" data-tab="week">This Week</button>
+      <button class="tab" data-tab="bank">Idea Bank</button>
+      <button class="tab" data-tab="how">How it works</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- THIS WEEK -->
+  <section id="tab-week">
+    <div class="hint">💡 <b>These are starting points, not rules.</b> Grab one a day, film it your way, tap <b>Mark filmed</b> when it's up. Ran out of time? Pull anything from the <b>Idea Bank</b>.</div>
+    <div id="weekList"></div>
+    <div class="trendbar" id="trendBar"></div>
+    <div class="resetline"><button class="reset" id="resetWeek">Reset this week's checkmarks</button></div>
+  </section>
+
+  <!-- IDEA BANK -->
+  <section id="tab-bank" style="display:none;">
+    <div class="hint">🎁 <b>Evergreen ideas</b> you can film any day, any time. No wrong choices — pick whatever's easy with who's in the chair.</div>
+    <div id="bankList" class="bank"></div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="tab-how" style="display:none;">
+    <div class="steps">
+      <div class="step"><div class="ic">📅</div><div class="st"><b>One idea a day</b><p>Seven ideas each week — roughly one per day. You don't have to do them in order, or all of them.</p></div></div>
+      <div class="step"><div class="ic">✨</div><div class="st"><b>Make it yours</b><p>The idea is the important part. The shot list under "Details" is just one way to do it — change it, simplify it, make it funnier.</p></div></div>
+      <div class="step"><div class="ic">📱</div><div class="st"><b>Film on a phone, vertical</b><p>Hold the phone tall (9:16), find a window for good light. Most clips are 10–30 seconds. One idea per video.</p></div></div>
+      <div class="step"><div class="ic">🧸</div><div class="st"><b>Kids' faces</b><p>Only show a child's full face if a parent said yes. Otherwise film hands, details, the back, reactions, the team, the room — the details are already written for you.</p></div></div>
+      <div class="step"><div class="ic">✅</div><div class="st"><b>Tap "Mark filmed"</b><p>So the team knows what's done. The bar up top fills as you go. It clears on its own each new week.</p></div></div>
+      <div class="step"><div class="ic">📋</div><div class="st"><b>Copy the caption</b><p>Open "Details" and tap Copy on the caption or hashtags — paste it straight into Instagram, TikTok, or YouTube.</p></div></div>
+      <div class="step"><div class="ic">🔄</div><div class="st"><b>It refreshes itself</b><p>Fresh ideas appear every Monday, based on what's trending that week. Nobody has to update it.</p></div></div>
+    </div>
+  </section>
+
+  <footer>
+    Sweet &amp; Sassy of Cumming · (678) 931-8356 · Text 770-781-3863<br>
+    <a href="https://www.sweetandsassy.com/cumming/">sweetandsassy.com/cumming</a>
+  </footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= WEEK DATA — the Monday auto-refresh regenerates only this object ================= */
+const WEEK = {
+  label: "August 17–23, 2026",
+  refreshed: "Refreshed Aug 13, 2026 · one idea per day, ready to shoot on a phone",
+  trends: [
+    ['“august” / “End of August” audio', 'soft end-of-summer “life lately” recaps &amp; reveals'],
+    ['BTS → reveal', 'show the build, pay it off on the last beat'],
+    ['“My Biggest Flex” list', 'quick on-screen list of what you’re proud of']
+  ],
+  posts: [
+  {n:17, dow:"Mon", closed:true, pillar:"bts", goal:"Show the team", title:"Our biggest flexes",
+   hook:"Point at the camera: “Things we’re low-key proud of 💅”",
+   filming:["Point to camera, then cut to quick 2–3s clips of each “flex”.","Show: a stylist working, a clean spa station, a party room being set up, new piercing earrings.","End on the whole team doing a little shrug-smile."],
+   onscreen:"“Licensed stylists ✔” → “We set up + host the whole party 🎉” → “Gentle first piercings ✨” → “Made just for kids 💕”",
+   vo:"Trending audio only — an upbeat “my biggest flex”-style sound.",
+   caption:"A few things we don’t mind bragging about: licensed cosmetologists, parties we set up and host start to finish, and first ear piercings done gently. All under one sparkly roof in Cumming. 💕",
+   cta:"Come see us at 410 Peachtree Parkway in Cumming.",
+   hashtags:["#SweetAndSassyCumming","#KidsSalon","#CummingGA","#ForsythCounty","#NorthAtlanta","#KidsSpa","#AtlantaKids"],
+   filename:"SSCumming_0817_BiggestFlex.mp4"},
+
+  {n:18, dow:"Tue", pillar:"party", goal:"Book parties", title:"A princess party, start to sparkle",
+   hook:"A crown lowered onto a little head: “Every princess needs a coronation 👑”",
+   filming:["Close-ups: crown, gown swish, sparkly nails, the royal table.","A princess updo being styled (film hands / back of head).","The little coronation or twirl moment.","Slow pan of the finished party room."],
+   onscreen:"“Gown ✔” → “Royal updo ✔” → “Coronation ✔” → “Perfect Princess 👑”",
+   vo:"Trending audio only — a soft magical build that pays off on the reveal.",
+   caption:"The Perfect Princess party is the whole fairytale — gown, crown, royal hair, even a little coronation — while we handle every detail. 👑 You just soak up the memories.",
+   cta:"Book a party at Sweet & Sassy in Cumming.",
+   hashtags:["#SweetAndSassyCumming","#PerfectPrincessParty","#KidsBirthdayParty","#GirlsBirthdayParty","#CummingGA","#ForsythCounty","#AtlantaKids"],
+   filename:"SSCumming_0818_PrincessParty.mp4"},
+
+  {n:19, dow:"Wed", pillar:"spa", goal:"Spa bookings", title:"A tiny first manicure",
+   hook:"Overhead of little hands over a tray of polish: “Pick your color 💅”",
+   filming:["Straight-down overhead of little hands choosing a polish.","Soft close-ups of the mani — lotion, careful polish, a sparkle top coat.","Hands fan out to show the finished sparkly nails.","Peek at the matching pedi + fuzzy slippers."],
+   onscreen:"“Pick your color 💅” → “Sparkle, obviously ✨” → “Ta-da!”",
+   vo:"Trending audio only — a soft, satisfying sound (great with an “End of August” track).",
+   caption:"Nothing like a kiddo picking their very first polish (it’s always the glitter 💖). Our Sweet Treat manis are gentle, kid-safe, and pure spa-day joy — a sweet little afternoon together.",
+   cta:"Reserve online at sweetandsassy.com/cumming.",
+   hashtags:["#SweetAndSassyCumming","#KidsSpa","#KidsManicure","#CummingGA","#ForsythCounty","#NorthAtlanta","#GirlsDay","#AtlantaKids"],
+   filename:"SSCumming_0819_FirstMani.mp4"},
+
+  {n:20, dow:"Thu", pillar:"party", goal:"Book parties", title:"Pop star for a day",
+   hook:"A sparkly mic handed toward the camera: “It’s showtime 🎤”",
+   filming:["Backstage details — glam, star shades, a boa, shimmer.","Hair and glam happening (film hands / from behind).","On the beat: a pop-star pose on the stage with the mic and lights.","Pan across the stage setup."],
+   onscreen:"“Backstage 🎤” → “Glam ✔ Boa ✔ Star power ✔” → “Showtime! 🌟”",
+   vo:"“Hair, glam, a little sparkle… and we’ve got a headliner.” (or high-energy trending audio)",
+   caption:"Every kid deserves their headliner moment 🎤 Our Pop Star party brings the stage, the lights, and the star treatment — set up and hosted by us so the birthday star just shines. 🌟",
+   cta:"Call (678) 931-8356 to plan your party.",
+   hashtags:["#SweetAndSassyCumming","#PopStarParty","#KidsBirthdayParty","#GirlsBirthdayParty","#CummingGA","#ForsythCounty","#AtlantaKids"],
+   filename:"SSCumming_0820_PopStar.mp4"},
+
+  {n:21, dow:"Fri", pillar:"bts", goal:"Fun reach", title:"Empty room → full party",
+   hook:"Bare room; roll the party carpet toward the camera: “Watch this…”",
+   filming:["Start on the empty, quiet room.","Fast fun clips of the build — carpet, backdrop, polish lined up, signage.","On the last beat, cut to the finished room all set up.","Slow tilt up the finished space."],
+   onscreen:"“Empty room 🫥” → “…watch this…” → “Ready 🌟”",
+   vo:"Trending audio only — a build-up-and-drop “reveal” sound.",
+   caption:"The magic parents never see: we turn an empty room into a whole party before the birthday crew walks in 🌟 You bring the star — we handle every sparkle.",
+   cta:"Reserve online at sweetandsassy.com/cumming.",
+   hashtags:["#SweetAndSassyCumming","#BehindTheScenes","#KidsBirthdayParty","#CummingGA","#ForsythCounty","#AtlantaKids"],
+   filename:"SSCumming_0821_PartyBuild.mp4"},
+
+  {n:22, dow:"Sat", pillar:"salon", goal:"Salon bookings", title:"The most satisfying braid",
+   hook:"Overhead of hands starting to braid: “Wait for it… 🎀”",
+   filming:["Straight-down overhead — combing and sectioning (back of head).","The braid coming together, a little sped up.","Finished braid with a ribbon added.","A quick “it holds!” head-shake."],
+   onscreen:"“Section 🪮” → “Braid, braid, braid…” → “Bow on top 🎀”",
+   vo:"Trending audio only — a soft, satisfying sound.",
+   caption:"The most satisfying 20 seconds on your feed today 🎀 A braid that lasts a whole school day and still looks great in the photo. Gentle even for the squirmiest client. Which style next?",
+   cta:"Reserve online at sweetandsassy.com/cumming.",
+   hashtags:["#SweetAndSassyCumming","#KidsBraids","#KidsSalon","#CummingGA","#ForsythCounty","#NorthAtlanta","#AtlantaKids"],
+   filename:"SSCumming_0822_Braid.mp4"},
+
+  {n:23, dow:"Sun", pillar:"pierce", goal:"Piercing bookings", title:"The bravest little moment",
+   hook:"Hold up a “You Were So Brave!” certificate: “Ear piercing, but a celebration 🎉”",
+   filming:["Show the clean station and the new sealed earrings.","The moment — film from behind / over the shoulder, team cheering.","Reaction — proud smile, high-fives, certificate + sticker.","Close-up of the new sparkly studs."],
+   onscreen:"“Big brave breath…” → “You did it! 🎉” → “Certified sparkly ✨”",
+   vo:"“One brave breath… and all done. Look how sparkly — you were SO brave!”",
+   caption:"First ear piercings are a big-kid milestone, so we make them a celebration 🎉 Both ears at once, gentle, sterile, hypoallergenic — and a certificate for the bravery. Parents, we walk you through it all first.",
+   cta:"Call (678) 931-8356 to ask about ear piercing.",
+   hashtags:["#SweetAndSassyCumming","#EarPiercing","#FirstPiercing","#CummingGA","#ForsythCounty","#NorthAtlanta","#AtlantaKids"],
+   filename:"SSCumming_0823_EarPiercing.mp4"}
+  ]
+};
+
+/* ================= IDEA BANK — evergreen, film any day ================= */
+const BANK = [
+  {pillar:"salon", title:"A very first haircut", idea:"Capture the milestone — the cape going on, gentle first snips, and the keepsake curl in its little certificate envelope.", tip:"Film the toy they’re holding, the hands, the reaction. Faces only if a parent’s okay with it."},
+  {pillar:"spa", title:"Makeover confidence walk", idea:"Everyday kid → full sparkle, then a confident little walk or twirl toward the camera.", tip:"Cover the lens with a hand, pull it away on the ‘after’."},
+  {pillar:"party", title:"Guess the theme", idea:"Flash 3 seconds of a setup and let viewers guess which party theme it is before the reveal.", tip:"Great for showing off a theme you’re proud of that day."},
+  {pillar:"pierce", title:"The countdown", idea:"Just the ‘3-2-1, all done, you were so brave!’ moment and the happy reaction.", tip:"Film over the shoulder — you never need to show the actual piercing."},
+  {pillar:"bts", title:"Closing-time reset", idea:"Satisfying quick-clips of tidying and restocking a station until it sparkles.", tip:"Overhead shots feel the most satisfying."},
+  {pillar:"trust", title:"Answer a real question", idea:"Pick one thing parents always ask (‘what ages?’, ‘what’s included?’) and answer it in 15 seconds.", tip:"Talk to the camera like you would to a mom at the desk."},
+  {pillar:"spa", title:"Pick-your-polish overhead", idea:"Straight-down shot of a kiddo choosing a color, then the finished sparkly nails.", tip:"Line the polishes up by color first — it looks great."},
+  {pillar:"salon", title:"Braid of the day", idea:"One braid or style coming together, sped up, with a bow at the end.", tip:"Back-of-head framing, add a ribbon reveal."},
+  {pillar:"local", title:"Hi, Cumming 👋", idea:"A quick warm walk-through of the space for local parents who haven’t found you yet.", tip:"End on the address so people can save it."},
+  {pillar:"party", title:"Set-up time-lapse", idea:"Speed-run of a party room going from empty to fully styled.", tip:"Prop the phone somewhere steady and let it record the whole build."},
+  {pillar:"trust", title:"The easiest gift", idea:"Frame a spa day or party as the gift that beats another toy — aimed at grandparents & gift-givers.", tip:"Show a gift card or ‘it’s a spa day!’ card, then the fun it unlocks."},
+  {pillar:"bts", title:"POV: you work here", idea:"First-person mini day-in-the-life — lights on, glitter, giggles, glitter cleanup.", tip:"Hold the phone like it’s your eyes; keep clips short."}
+];
+
+const PILLARS = {
+  party:{label:"Party",color:"var(--p-party)"}, salon:{label:"Salon",color:"var(--p-salon)"},
+  spa:{label:"Spa & Glam",color:"var(--p-spa)"}, pierce:{label:"Ear Piercing",color:"var(--p-pierce)"},
+  trust:{label:"Parent Trust",color:"var(--p-trust)"}, camp:{label:"Camps & Events",color:"var(--p-camp)"},
+  bts:{label:"Behind the Scenes",color:"var(--p-bts)"}, local:{label:"Local",color:"var(--p-local)"}
+};
+
+/* ---------- done-state (persists on your hosted site; falls back to memory) ---------- */
+const KEY='ss_done_'+WEEK.label;
+let done=(()=>{try{return JSON.parse(localStorage.getItem(KEY))||{};}catch(e){return {};}})();
+function save(){try{localStorage.setItem(KEY,JSON.stringify(done));}catch(e){}}
+
+document.getElementById('weekSub').textContent=WEEK.label;
+
+/* ---------- trends ---------- */
+const tb=document.getElementById('trendBar');
+tb.innerHTML='<div class="th">Trending this week</div>'+WEEK.trends.map(t=>`<div>• <b>${t[0]}</b> — ${t[1]}</div>`).join('');
+
+/* ---------- progress ---------- */
+function updateProg(){
+  const total=WEEK.posts.length;
+  const n=WEEK.posts.filter(p=>done[p.filename]).length;
+  document.getElementById('barFill').style.width=(n/total*100)+'%';
+  document.getElementById('progCnt').textContent=`${n} of ${total} filmed`;
+}
+
+/* ---------- detail block builder ---------- */
+function detailHTML(p){
+  const shots=p.filming.map(s=>`<li>${s}</li>`).join('');
+  const tags=p.hashtags.join(' ');
+  return `
+   <div class="details">
+    <div class="block"><div class="lab">🎬 One way to film it</div>
+      <div class="txt"><ul>${shots}</ul><div class="flex-note">Just a suggestion — change it up however you like.</div></div></div>
+    <div class="block"><div class="lab">✍️ Words on screen</div><div class="txt">${p.onscreen}</div></div>
+    <div class="block"><div class="lab">🗣️ Something to say (optional)</div><div class="txt">${p.vo}</div></div>
+    <div class="block"><div class="lab">📝 Caption</div>
+      <div class="copyrow"><div class="txt" data-cap>${p.caption}<br><span style="color:var(--muted)">${p.cta}</span></div>
+      <button class="copybtn" data-copy="${encodeURIComponent(p.caption+'\\n\\n'+p.cta+'\\n\\n'+tags)}">Copy</button></div></div>
+    <div class="block"><div class="lab">#️⃣ Hashtags</div>
+      <div class="copyrow"><div class="txt tags">${tags}</div>
+      <button class="copybtn" data-copy="${encodeURIComponent(tags)}">Copy</button></div></div>
+    <div class="block"><div class="lab">💾 Save the clip as</div><div class="txt"><span class="fname">${p.filename}</span></div></div>
+   </div>`;
+}
+
+/* ---------- render week ---------- */
+const weekList=document.getElementById('weekList');
+WEEK.posts.forEach(p=>{
+  const meta=PILLARS[p.pillar]; const isDone=!!done[p.filename];
+  const card=document.createElement('div');card.className='card'+(isDone?' done':'');
+  card.innerHTML=`
+    <div class="head">
+      <div class="daychip"><div class="d">${p.dow}</div><div class="n">${p.n}</div></div>
+      <div class="headmain">
+        <div class="ptag" style="color:${meta.color}"><span class="dot" style="background:${meta.color}"></span>${meta.label} · 🎯 ${p.goal}</div>
+        <div class="idea">${p.title}</div>
+        <div class="why">${p.hook}</div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="mark">${isDone?'✓ Filmed':'Mark filmed'}</button>
+      <button class="more">Details</button>
+    </div>
+    ${detailHTML(p)}`;
+  card.querySelector('.mark').onclick=()=>{
+    done[p.filename]=!done[p.filename];save();
+    card.classList.toggle('done',done[p.filename]);
+    card.querySelector('.mark').textContent=done[p.filename]?'✓ Filmed':'Mark filmed';
+    updateProg(); if(done[p.filename]) toast('Nice! Marked as filmed ✓');
+  };
+  card.querySelector('.more').onclick=()=>card.classList.toggle('open');
+  weekList.appendChild(card);
+});
+
+/* ---------- render idea bank ---------- */
+const bankList=document.getElementById('bankList');
+BANK.forEach(b=>{
+  const meta=PILLARS[b.pillar];
+  const card=document.createElement('div');card.className='card open';
+  card.innerHTML=`
+    <div class="head">
+      <div class="headmain">
+        <div class="ptag" style="color:${meta.color}"><span class="dot" style="background:${meta.color}"></span>${meta.label}</div>
+        <div class="idea">${b.title}</div>
+        <div class="why">${b.idea}</div>
+      </div>
+    </div>
+    <div class="details" style="display:block;border-top:1px solid var(--line);">
+      <div class="block" style="border:none;"><div class="lab">🎬 Quick tip</div><div class="txt">${b.tip}</div></div>
+    </div>`;
+  bankList.appendChild(card);
+});
+
+/* ---------- copy (event delegation) ---------- */
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-copy]'); if(!b)return;
+  navigator.clipboard.writeText(decodeURIComponent(b.dataset.copy)).then(()=>{
+    const o=b.textContent;b.textContent='Copied ✓';toast('Copied — paste it into the app');
+    setTimeout(()=>b.textContent=o,1300);
+  });
+});
+
+/* ---------- tabs ---------- */
+document.querySelectorAll('.tab').forEach(t=>{
+  t.onclick=()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');
+    ['week','bank','how'].forEach(k=>document.getElementById('tab-'+k).style.display=(k===t.dataset.tab?'block':'none'));
+    window.scrollTo({top:0,behavior:'smooth'});
+  };
+});
+
+/* ---------- reset ---------- */
+document.getElementById('resetWeek').onclick=()=>{
+  done={};save();
+  document.querySelectorAll('#weekList .card').forEach(c=>{c.classList.remove('done');c.querySelector('.mark').textContent='Mark filmed';});
+  updateProg();toast('Checkmarks cleared');
+};
+
+/* ---------- toast ---------- */
+let tt; function toast(m){const el=document.getElementById('toast');el.textContent=m;el.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('show'),1600);}
+
+updateProg();
+</script>
+</body>
+</html>
