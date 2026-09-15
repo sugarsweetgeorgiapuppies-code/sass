@@ -1,124 +1,94 @@
-# Sweet & Sassy of Cumming — Weekly "This Week to Film" Runbook (Claude Code)
+# Sweet & Sassy of Cumming — Weekly Trend Refresh (Claude Code)
 
-**Purpose:** Every Monday, regenerate the store's one-week content page with fresh, trend-driven
-ideas and **push it live through git so Render auto-deploys it.** The live page the team opens is
-served by Render (e.g. `sass-zwml.onrender.com`) and deploys automatically when this repo receives
-a new commit on the branch Render watches.
+**The idea:** every Monday, find what's **actually gaining traction** in short-form video right now,
+and put 4–5 of those trends on the team's page as light prompts they can riff on.
 
-> This runbook replaces the old Cowork routine, which was publishing to a claude.ai artifact that
-> the team's page was **not** connected to. The fix: update the page **in this repo** and push.
+**Not** shot-by-shot scripts, VO lines, or filenames. The team knows how to film. What they need is
+*"here's what's working this week, here are a few ways to use it with what's in the chair today."*
 
 ---
 
-## THE PIPELINE (why this repo is the source of truth)
+## THE PIPELINE
 
 ```
-You edit the page file  →  git commit  →  git push  →  Render detects the commit  →  live site updates
+Edit index.html  →  git commit  →  git push (main)  →  Render redeploys  →  live site updates
 ```
 
-If you skip the commit/push, nothing changes on the live site. The commit **is** the deploy.
-
----
-
-## STEP 0 — ORIENT (first run only, or if the layout changed)
-
-1. Confirm the git remote and branch Render watches:
-   `git remote -v` and `git branch --show-current`.
-2. Find the page file. It's the HTML the site serves — likely `index.html` (or `public/index.html`,
-   `src/index.html`, `dist/index.html`). Open it and locate **where the weekly content lives.**
-   - The current Render page (`index.html`) is **"This Week's Video Ideas"** — a day-by-day layout
-     with three tabs: **This Week**, **Idea Bank**, and **How it works**. A sticky header shows the
-     week label, the "Refreshed ..." line, and a filmed-progress bar.
-   - All weekly content lives in **one JavaScript object, `const WEEK`**, at the top of the `<script>`
-     block. Its shape:
-     - `label` — e.g. `"September 14-20, 2026"`
-     - `refreshed` — the "Refreshed <Mon DD, YYYY> - ..." line
-     - `trends` — array of `[name, description]` pairs (2-3), rendered in the "Trending this week" bar
-     - `posts` — array of 7 objects, one per day Mon->Sun, each with:
-       `n` (day number), `dow` (`"Mon"`..`"Sun"`), optional `closed:true`, `pillar`, `goal`, `title`,
-       `hook`, `filming` (array of shot-list strings), `onscreen`, `vo`, `caption`, `cta`,
-       `hashtags` (array of 6-9), `filename`
-   - `pillar` must be a key of the `PILLARS` map further down: `party`, `salon`, `spa`, `pierce`,
-     `trust`, `camp`, `bts`, `local`.
-   - **Update `WEEK` only.** `const BANK` (evergreen Idea Bank) is intentionally static - leave it
-     alone unless asked. Do not restructure the HTML/CSS.
-3. Note the exact variable name and shape so you can refresh it each week without touching the design.
+The live page is served by Render from the **`main`** branch of this repo. **The commit is the deploy.**
+Skip the push and nothing changes for the team.
 
 ---
 
 ## STEP 1 — DATES
 
-Run `date`. The page covers the **current week, Monday–Sunday** (today through the coming Sunday).
-Capture: the week label (e.g. `September 14–20, 2026`), a "Refreshed <Mon DD, YYYY>" line, and the
-7 day-numbers for Mon–Sun.
+Run `date`. The page covers the **current week, Monday–Sunday**. You need the week label
+(e.g. `September 14–20, 2026`) and a `Refreshed <Mon DD, YYYY>` line.
 
 ---
 
-## STEP 2 — TRENDS
+## STEP 2 — FIND WHAT'S GAINING TRACTION
 
-Web-search what short-form formats and trending audio are current **this week**
-(e.g. "trending Instagram Reels TikTok audio this week", "short-form video format trends").
-Pick **2–3** that genuinely fit kids'-salon/spa/party footage — do not force trends that don't match.
-Surface them on the page and weave them into the relevant posts.
+Web-search what's trending in short-form **this week** — e.g. "trending Instagram Reels audio this
+week", "TikTok trending sounds this week", "short-form video format trends".
+
+Pick **4–5** that genuinely work with kids'-salon/spa/party footage. Prefer trends that:
+- need **no faces** (hands, details, backs, the room, the team) — the face rule is non-negotiable
+- work with whatever is *already happening that day* — a mani, a braid, a party setup, a restock
+- are easy to shoot on a phone in one take
+
+**Do not force a trend that doesn't fit.** A trend the team can't actually film is worse than
+one fewer card. It's fine to round out the list with one or two "Always works" evergreens.
 
 ---
 
-## STEP 3 — BRAND CONTEXT (baked in — no external file needed)
+## STEP 3 — BRAND CONTEXT (baked in)
 
 - **Sweet & Sassy of Cumming** · 410 Peachtree Parkway, Suite 342, Cumming, GA 30041
 - Call **(678) 931-8356** · Text **770-781-3863** · **sweetandsassy.com/cumming**
 - Hours: **Tue–Sat 10–7, Sun 12–6, Closed Monday**
-- Tagline: **"Where Little Moments Become Big Memories."**
-- Services: kids' haircuts (incl. **"My First Haircut"** with keepsake lock of hair + certificate),
+- Services: kids' haircuts (incl. **"My First Haircut"** with keepsake lock + certificate),
   styling/braiding, mani/pedis (**Sweet Treat**), makeovers, gentle **ear piercing** (both ears at
   once, sterile, hypoallergenic, certificate), and turnkey **birthday parties** — themes: Perfect
-  Princess, Pop Star, Spa-tacular, Fashion Runway, Eras, K-Pop Glam, Design Your Dream Bash. All
-  parties hosted start to finish. Ages ~4–12.
+  Princess, Pop Star, Spa-tacular, Fashion Runway, Eras, K-Pop Glam, Design Your Dream Bash.
+  Ages ~4–12.
 
 **Rules (non-negotiable):**
-- Never invent pricing, availability, party inclusions, or staff names beyond what's known.
-- Direct parents to call/book online for dates; never claim a specific slot is open.
-- No fake urgency ("stop scrolling", "book now before it's gone"). Tasteful emoji. Vary captions.
-- The child is the guest but the **PARENT is the buyer** — captions/CTAs land with moms/gift-givers.
+- Never invent pricing, availability, party inclusions, or staff names.
+- Never claim a specific slot is open — point people to call or book online.
+- No fake urgency ("stop scrolling", "book now before it's gone"). Tasteful emoji.
+- The child is the guest but the **PARENT is the buyer** — captions land with moms and gift-givers.
 - On-camera is the girls/stylists on staff. **A person named Phil must NEVER appear on camera or in
   any concept.**
-- Filming children: favor hands/details/reactions/backs/the team/the space; full faces only with
-  parent approval — bake those alternatives into every shot list.
+- **Filming children:** favor hands / details / reactions / backs / the team / the space. Full faces
+  only with parent approval. Favor trends that work without faces at all.
 
 ---
 
-## STEP 4 — BUILD THE WEEK
+## STEP 4 — UPDATE THE PAGE
 
-Seven posts, **one per day Mon–Sun**, each native to Reels + TikTok + YouTube Shorts.
-**Party-weighted:** about **2 of 7** are party spotlights (rotate which themes each week).
-Fill the rest across the other pillars; **do not repeat a pillar back-to-back.**
+All content lives in **one object, `const WEEK`**, at the top of the `<script>` block in `index.html`:
 
-Suggested rhythm: Mon behind-the-scenes/team · Tue party · Wed spa or salon proof/before-after ·
-Thu party or seasonal/gift · Fri trend/reveal · Sat salon/local · Sun ear piercing or spa/milestone.
-Favor what's seasonally timely (back-to-school, fall, Grandparents Day in Sept, Halloween pre-sell in
-fall, holidays). Rotate CTAs so none repeats back-to-back:
-book online · call (678) 931-8356 · text 770-781-3863 · come see us at 410 Peachtree Parkway ·
-tag a mom whose kiddo would love this · book a party.
+- `label` — e.g. `"September 14–20, 2026"`
+- `refreshed` — e.g. `"Refreshed Sep 14, 2026"`
+- `ideas` — array of 4–5 cards, each:
+  - `kind` — `"Trending sound"`, `"Trending format"`, or `"Always works"`
+  - `name` — the trend, as the team would recognize it
+  - `why` — one or two sentences on *why it's working right now*
+  - `tryit` — 3 short bullets: concrete ways to use it with real salon/spa/party footage
+  - `caption` — a caption *starter*, one line, for them to make their own
+  - `hashtags` — 6 tags: `#SweetAndSassyCumming` + service/local
+    (`#CummingGA #ForsythCounty #NorthAtlanta`)
 
-**Each post needs all NINE items:** (1) title/concept (2) hook that lands in the first 1–2 sec
-(3) shot-by-shot filming instructions (4) on-screen text (5) spoken line/VO — or "trending-audio only"
-(6) caption (parent-facing, varied openings) (7) call to action (8) 6–9 hashtags including
-`#SweetAndSassyCumming` + the right service/event tag + local tags
-(`#CummingGA #ForsythCounty #NorthAtlanta`) (9) filename like `SSCumming_MMDD_ShortName.mp4`.
-
-**Apply the new content to the page's data object in its own shape.** If the page is trend-centric,
-map the 2–3 trends into the trend cards (name, "why it works", "ways to try it", caption starter +
-hashtags) and fold the 7 day ideas into whatever list the page uses. If the page is day-by-day, fill
-its 7-post array. Either way: update the **data only**, keep the design.
+**Update `WEEK` only. Do not restructure the HTML/CSS.** Keep it light — if a card is starting to
+read like a script, cut it back.
 
 ---
 
 ## STEP 5 — VALIDATE
 
-Quick sanity check before committing: the week label + refreshed line are correct; there are 7 day
-ideas Mon→Sun; ~2 party spotlights; no back-to-back pillar repeat; every hashtag set is 6–9 long;
-no invented pricing/slots; no fake urgency; Phil appears nowhere. If the page uses JS data, confirm
-it still parses (open it, or `node -e` eval the object) so the site doesn't break.
+Week label and refreshed line correct · 4–5 cards · every `tryit` is filmable with what's on hand ·
+6 hashtags each · no invented pricing or slots · no fake urgency · Phil nowhere · face-safe.
+Confirm the JS still parses (open the page, or eval the object) so the site doesn't break.
 
 ---
 
@@ -126,20 +96,12 @@ it still parses (open it, or `node -e` eval the object) so the site doesn't brea
 
 ```bash
 git add -A
-git commit -m "Weekly content refresh: <week label>"
-git push
+git commit -m "Weekly trend refresh: <week label>"
+git push origin main
 ```
 
-Render auto-deploys from the pushed commit. After ~1–2 minutes, load the live URL and hard-refresh
-(Cmd/Ctrl+Shift+R) to confirm the new week shows. If Render doesn't pick it up, check the Render
-dashboard that the service is connected to this repo + branch and that auto-deploy is on.
+Render auto-deploys from `main`. After ~1–2 min, hard-refresh the live URL to confirm.
 
----
-
-## HANDING THIS TO CLAUDE CODE
-
-Drop this file in the repo root (or `.claude/`), plus the finished content file for the current week.
-Then just say: **"Run the weekly runbook — update this week's page and push."**
-To make it a one-word command, save it as a slash command at `.claude/commands/weekly.md` and run
-`/weekly`. To make it hands-off, schedule it (cron on your machine, a Render cron job, or a Cowork
-scheduled task **scoped to this repo** so it can push).
+> **History:** this used to publish to a claude.ai artifact that the Render page was never connected
+> to, so the live site silently went stale. The live page is **this repo, `main` branch**. If a run
+> can't push, the run failed — say so; don't publish somewhere else and call it done.
