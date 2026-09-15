@@ -17,6 +17,12 @@ A scheduled task runs **every Monday morning**: it checks what's trending that w
 `render.yaml` is included so Render auto-configures it. To have the live URL update itself each week too, connect the Render site to the GitHub repo and I can push the weekly file there — just ask.
 
 ## How the team uses it
-- **The week at a glance** — one card per day, color-tagged by content type.
-- **Tap a day** — full shot list, script, caption, hashtags, filename, with one-click copy.
-- **"Strategy in 30 seconds"** and **"Filming tips"** buttons — quick, not in the way.
+- **This Week** — one card per day, color-tagged by content type, with a filmed-progress bar.
+- **Tap "Details"** — full shot list, on-screen text, script, caption, hashtags, and filename, with
+  one-click copy for the caption and hashtags.
+- **Idea Bank** — evergreen ideas to film any day when the day's idea doesn't fit.
+- **How it works** — the short version for anyone new, including the rule on kids' faces.
+
+## Weekly refresh
+`SASS_WEEKLY_RUNBOOK.md` is the procedure; `content/` archives each week's finished content.
+Push to this repo and Render redeploys — the commit *is* the deploy.
